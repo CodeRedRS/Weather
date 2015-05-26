@@ -7,15 +7,14 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+    <!--<link rel="icon" href="favicon.ico">-->
 
-    <title>Cover Template for Bootstrap</title>
+    <title>Weather</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/cover.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
     <link href="css/palette.css" rel="stylesheet">
     <link href="css/font-awesome.css" rel="stylesheet">
@@ -31,10 +30,10 @@
 
 <div class="darken"></div>
 <div id="divVideo">
-    <video autoplay muted loop class="bgvid" id="sun">
+    <video autoplay muted loop class="bgvid" id="clear">
         <source src="//d2v9y0dukr6mq2.cloudfront.net/video/preview/sunny-redwoods-spin_-ji5zzvls__PM.mp4">
     </video>
-    <video autoplay muted loop hidden class="bgvid" id="cloud">
+    <video autoplay muted loop hidden class="bgvid" id="clouds">
         <source src="//d2v9y0dukr6mq2.cloudfront.net/video/preview/cloudy-sky-to-sunny-sky-to-night-sky_zjhljdseh__PM.mp4"
                 type="video/mp4">
     </video>
@@ -62,8 +61,8 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Weather
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li onclick="weather('sun')"><a href="#Sun">Sun</a></li>
-                    <li onclick="weather('cloud')"><a href="#Cloud">Cloud</a></li>
+                    <li onclick="weather('clear')"><a href="#Sun">Sun</a></li>
+                    <li onclick="weather('clouds')"><a href="#Cloud">Cloud</a></li>
                     <li onclick="weather('rain')"><a href="#Rain">Rain</a></li>
                     <li onclick="weather('lightning')"><a href="#Lightning">Lightning</a></li>
                     <li onclick="weather('snow')"><a href="#Snow">Snow</a></li>
@@ -82,16 +81,28 @@
 <sction id="search" class="center">
     <div class="container">
         <div class="row">
-            <div class="col-sm-8 col-sm-offset-1 col-xs-10">
-                <input placeholder="Postal Code or City Name" class="form-control input-lg">
-            </div>
-            <div class="col-sm-2 col-xs-2">
-                <button type="button" class="btn btn-default btn-lg" style="width: 100%" onclick="slideUp()">Search
-                </button>
-            </div>
+            <form>
+                <div class="col-sm-8 col-sm-offset-1 col-xs-10">
+                    <input placeholder="Postal Code or City Name" class="form-control input-lg" id="txtField">
+                </div>
+                <div class="col-sm-2 col-xs-2">
+                    <button type="button" class="btn btn-default btn-lg" style="width: 100%" onclick="slideUp()">Search
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </sction>
+
+<section id="results" class="center" hidden>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <p id="weather" class="form-control"></p>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 <!-- Bootstrap core JavaScript
@@ -103,6 +114,7 @@
 <script src="js/jquery-ui.js"></script>
 
 <script>
+
     function weather(w) {
         var divVideo = $('#divVideo');
         var weather = '#' + w;
@@ -111,11 +123,22 @@
     }
 
     function slideUp() {
+        var city = $('#txtField').val();
+
+        $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=" + city, function (json) {
+            console.log(json)
+            $('#weather').text(json.name + " - " + json.id.toString() + " - " + json.weather[0].main);
+
+            weather(json.weather[0].main.toLowerCase())
+        });
+
+        $('#results').fadeIn('slow');
+
         $('#search').animate({
             top: 80
         }, {
             duration: 1500,
-            easing: "easeInExpo"
+            easing: "easeInOutSine"
         });
     }
 </script>
