@@ -31,31 +31,55 @@
 
 <div class="darken"></div>
 <div id="divVideo">
-    <video autoplay loop id="bgvid">
-        <!--<source src="//www.istockphoto.com/video_passthrough/24531660/153/24531660.mp4" type="video/mp4" id="rain">-->
-        <!--<source src="//www.istockphoto.com/video_passthrough/3031739/152/3031739.mp4" type="video/mp4" id="sun">-->
-        <!--<source src="//www.istockphoto.com/video_passthrough/8211110/153/8211110.mp4" type="video/mp4" id="snow">-->
-        <!--<source src="//www.istockphoto.com/video_passthrough/22346049/153/22346049.mp4" type="video/mp4" id="ligntning">-->
-        <!--<source src="//www.istockphoto.com/video_passthrough/16911262/153/16911262.mp4" type="video/mp4" id="cloud">-->
+    <video autoplay muted loop class="bgvid" id="sun">
+        <source src="//d2v9y0dukr6mq2.cloudfront.net/video/preview/sunny-redwoods-spin_-ji5zzvls__PM.mp4">
+    </video>
+    <video autoplay muted loop hidden class="bgvid" id="cloud">
+        <source src="//d2v9y0dukr6mq2.cloudfront.net/video/preview/cloudy-sky-to-sunny-sky-to-night-sky_zjhljdseh__PM.mp4"
+                type="video/mp4">
+    </video>
+    <video autoplay muted loop hidden class="bgvid" id="rain">
+        <source src="//d2v9y0dukr6mq2.cloudfront.net/video/preview/hard-rain-on-leaves-close_-jkulb9qb__PM.mp4"
+                type="video/mp4">
+    </video>
+    <video autoplay muted loop hidden class="bgvid" id="lightning">
+        <source src="//d2v9y0dukr6mq2.cloudfront.net/video/preview/multiple-lightning-flashes-around-dc_-1qizojls__PM.mp4"
+                type="video/mp4">
+    </video>
+    <video autoplay muted loop hidden class="bgvid" id="snow">
+        <source src="//d2v9y0dukr6mq2.cloudfront.net/video/preview/pine-trees-in-heavy-snow_bjjzd1oes__PM.mp4"
+                type="video/mp4">
     </video>
 </div>
 
-<nav class="navbar navbar-inverse navbar-fixed-top" style="z-index: 800; top: 0;">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <span class="navbar-brand">The Weather Website</span>
         </div>
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Weather
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li onclick="weather('sun')"><a href="#Sun">Sun</a></li>
+                    <li onclick="weather('cloud')"><a href="#Cloud">Cloud</a></li>
+                    <li onclick="weather('rain')"><a href="#Rain">Rain</a></li>
+                    <li onclick="weather('lightning')"><a href="#Lightning">Lightning</a></li>
+                    <li onclick="weather('snow')"><a href="#Snow">Snow</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="pull-right">
             <ul class="nav navbar-nav navbar-right">
-                <li style="display: none"><a><span id="date"></span></a></li>
-                <li style="display: none"><a><span id="time"></span></a></li>
+                <li style="display: none"><a class="default-cursor"><span id="date"></span></a></li>
+                <li style="display: none"><a class="default-cursor"><span id="time"></span></a></li>
             </ul>
         </div>
     </div>
 </nav>
 
-<sction id="search" class="center" style="z-index: 999">
+<sction id="search" class="center">
     <div class="container">
         <div class="row">
             <div class="col-sm-8 col-sm-offset-1 col-xs-10">
@@ -79,14 +103,19 @@
 <script src="js/jquery-ui.js"></script>
 
 <script>
-
+    function weather(w) {
+        var divVideo = $('#divVideo');
+        var weather = '#' + w;
+        divVideo.find('video').fadeOut('slow');
+        divVideo.find(weather).fadeIn('slow');
+    }
 
     function slideUp() {
         $('#search').animate({
-            top: 100
+            top: 80
         }, {
             duration: 1500,
-            easing: "easeOutBounce"
+            easing: "easeInExpo"
         });
     }
 </script>

@@ -5536,7 +5536,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 
 .navbar-inverse .navbar-nav > li > a {
     color: #9d9d9d;
-    cursor: default;
+    cursor: pointer;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover,

@@ -1,5 +1,8 @@
+*[hidden] {
+    display: none;
+}
 
-video#bgvid {
+video.bgvid {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -13,11 +16,11 @@ video#bgvid {
     background: #000;
     background-size: cover;
 
-    -webkit-filter: blur(12px);
-    -moz-filter: blur(12px);
-    -o-filter: blur(12x);
-    -ms-filter: blur(12px);
-    filter: blur(12px);
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
 }
 
 #divVideo {
@@ -36,10 +39,10 @@ video#bgvid {
 }
 
 nav {
-    -webkit-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
-    -o-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+    -o-box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
 }
 
 .center {
@@ -54,4 +57,8 @@ nav {
     /* give it dimensions */
     min-height: 10em;
     width: 90%;
+}
+
+.default-cursor {
+    cursor: default !important;
 }
