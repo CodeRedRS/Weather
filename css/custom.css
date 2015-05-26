@@ -27,8 +27,8 @@ video#bgvid {
 .darken {
     padding: 10px;
     position: fixed;
-    min-width: 105vw;
-    min-height: 105vw;
+    min-width: 200vw;
+    min-height: 200vw;
     width: auto;
     height: auto;
     z-index: -99;
@@ -40,4 +40,18 @@ nav {
     -moz-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
     -o-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.center {
+    top: 50%;
+    position: fixed;
+    /* center the element */
+    text-align: center;
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    /* give it dimensions */
+    min-height: 10em;
+    width: 90%;
 }

@@ -32,18 +32,20 @@
 <div class="darken"></div>
 <div id="divVideo">
     <video autoplay loop id="bgvid">
-        <source src="//www.istockphoto.com/video_passthrough/24531660/153/24531660.mp4" type="video/mp4">
+        <!--<source src="//www.istockphoto.com/video_passthrough/24531660/153/24531660.mp4" type="video/mp4" id="rain">-->
+        <!--<source src="//www.istockphoto.com/video_passthrough/3031739/152/3031739.mp4" type="video/mp4" id="sun">-->
+        <!--<source src="//www.istockphoto.com/video_passthrough/8211110/153/8211110.mp4" type="video/mp4" id="snow">-->
+        <source src="//www.istockphoto.com/video_passthrough/22346049/153/22346049.mp4" type="video/mp4" id="ligntning">
+        <!--<source src="//www.istockphoto.com/video_passthrough/16911262/153/16911262.mp4" type="video/mp4" id="cloud">-->
     </video>
 </div>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <span class="navbar-brand">The Weather Website</span>
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li style="display: none"><a><span id="date"></span></a></li>
@@ -53,11 +55,40 @@
     </div>
 </nav>
 
+<sction id="search" class="center">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-1 col-xs-10">
+                <input placeholder="Postal Code or City Name" class="form-control input-lg">
+            </div>
+            <div class="col-sm-2 col-xs-2">
+                <button type="button" class="btn btn-default btn-lg" style="width: 100%" onclick="slideUp()">Search
+                </button>
+            </div>
+        </div>
+    </div>
+</sction>
+
+
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="js/jquery-2.1.4.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/date-time.js"></script>
+<script src="js/jquery-ui.js"></script>
+
+<script>
+
+
+    function slideUp() {
+        $('#search').animate({
+            top: 100
+        }, {
+            duration: 1500,
+            easing: "easeOutBounce"
+        });
+    }
+</script>
 </body>
 </html>
