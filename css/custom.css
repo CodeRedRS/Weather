@@ -13,15 +13,15 @@ video#bgvid {
     background: #000;
     background-size: cover;
 
-    /*-webkit-filter: blur(5px);*/
-    /*-moz-filter: blur(5px);*/
-    /*-ms-filter: blur(5px);*/
-    /*-o-filter: blur(5px);*/
-    /*filter: blur(5px);*/
+    -webkit-filter: blur(12px);
+    -moz-filter: blur(12px);
+    -o-filter: blur(12x);
+    -ms-filter: blur(12px);
+    filter: blur(12px);
 }
 
 #divVideo {
-    overflow: hidden;
+    opacity: 0.6;
 }
 
 .darken {
