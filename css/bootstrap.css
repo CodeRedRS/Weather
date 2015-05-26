@@ -9,6 +9,9 @@ html {
     font-family: sans-serif;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
+    overflow: hidden;
+    background-color: #000;
+    color: #C5CAE9;
 }
 
 body {
@@ -5395,7 +5398,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 
 .navbar-default {
     background-color: #f8f8f8;
-    border-color: #e7e7e7;
+    border-color: #00BCD4;
 }
 
 .navbar-default .navbar-brand {
@@ -5518,11 +5521,12 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 
 .navbar-inverse .navbar-brand {
     color: #9d9d9d;
+    cursor: default;
 }
 
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
-    color: #fff;
+    /*color: #fff;*/
     background-color: transparent;
 }
 
@@ -5532,11 +5536,11 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 
 .navbar-inverse .navbar-nav > li > a {
     color: #9d9d9d;
+    cursor: default;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
-    color: #fff;
     background-color: transparent;
 }
 

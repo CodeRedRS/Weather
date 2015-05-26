@@ -1,0 +1,43 @@
+
+video#bgvid {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 110%;
+    min-height: 110%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    background: #000;
+    background-size: cover;
+
+    /*-webkit-filter: blur(5px);*/
+    /*-moz-filter: blur(5px);*/
+    /*-ms-filter: blur(5px);*/
+    /*-o-filter: blur(5px);*/
+    /*filter: blur(5px);*/
+}
+
+#divVideo {
+    overflow: hidden;
+}
+
+.darken {
+    padding: 10px;
+    position: fixed;
+    min-width: 105vw;
+    min-height: 105vw;
+    width: auto;
+    height: auto;
+    z-index: -99;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+nav {
+    -webkit-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    -o-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+}
