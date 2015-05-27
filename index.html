@@ -83,15 +83,14 @@
 <sction id="search" class="center">
     <div class="container">
         <div class="row">
-            <form>
-                <div class="col-sm-8 col-sm-offset-1 col-xs-10">
-                    <input placeholder="Postal Code or City Name" class="form-control input-lg" id="txtField">
-                </div>
-                <div class="col-sm-2 col-xs-2">
-                    <button type="button" class="btn btn-default btn-lg" style="width: 100%" onclick="slideUp()">Search
-                    </button>
-                </div>
-            </form>
+            <div class="col-sm-8 col-sm-offset-1 col-xs-10">
+                <input placeholder="Postal Code or City Name" class="form-control input-lg" id="txtField" type="text">
+            </div>
+            <div class="col-sm-2 col-xs-2">
+                <button type="button" class="btn btn-default btn-lg" id="search" style="width: 100%"
+                        onclick="slideUp()">Search
+                </button>
+            </div>
         </div>
     </div>
 </sction>
@@ -103,7 +102,8 @@
                 <h1 id="searchName"></h1>
 
                 <p id="weather"></p>
-                <p id="temp"></p>
+
+                <p><strong id="temp"></strong></p>
             </div>
         </div>
     </div>
@@ -120,6 +120,12 @@
 
 <script>
 
+    $('#txtField').keyup(function (e) {
+        if (e.keyCode == 13) {
+            slideUp();
+        }
+    });
+
     function weather(w) {
         var divVideo = $('#divVideo');
         var weather = '#' + w;
@@ -133,13 +139,17 @@
         $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=" + city, function (json) {
             console.log(json);
 
+            var kelvin = json.main.temp;
+            var fah = (kelvin * 9 / 5 - 459.67);
+            var cel = (kelvin - 273.15);
+
             if (json.name == "") {
                 $('#searchName').text(city.toUpperCase());
             } else {
                 $('#searchName').text(json.name.toUpperCase());
             }
             $('#weather').text(json.weather[0].main);
-            $('#temp').text(json.main.temp.toString());
+            $('#temp').text(fah.toFixed(1) + '℉ | ' + cel.toFixed(1) + '℃');
 
             weather(json.weather[0].main.toLowerCase())
         });
