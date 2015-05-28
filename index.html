@@ -73,6 +73,15 @@
         </ul>
         <div class="pull-right">
             <ul class="nav navbar-nav navbar-right">
+                <div class="btn-group" id="tempbtngrp" style="margin-top: 7px; margin-right: 5px;"
+                     data-toggle="buttons">
+                    <label class="btn btn-primary active">
+                        <input type="radio" name="temptgl" value="C" id="celcius" checked>C
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="temptgl" value="F" id="fahrenheit">F
+                    </label>
+                </div>
                 <li style="display: none"><a class="default-cursor"><span id="date"></span></a></li>
                 <li style="display: none"><a class="default-cursor"><span id="time"></span></a></li>
             </ul>
@@ -119,7 +128,6 @@
 <script src="js/jquery-ui.js"></script>
 
 <script>
-
     $('#txtField').keyup(function (e) {
         if (e.keyCode == 13) {
             slideUp();
@@ -149,7 +157,7 @@
                 $('#searchName').text(json.name.toUpperCase());
             }
             $('#weather').text(json.weather[0].main);
-            $('#temp').text(fah.toFixed(1) + '℉ | ' + cel.toFixed(1) + '℃');
+
 
             weather(json.weather[0].main.toLowerCase())
         });
@@ -161,6 +169,17 @@
         }, {
             duration: 1500,
             easing: "easeInOutSine"
+        });
+
+        //Method to change Temperature
+        $('#tempbtngrp input').on('change', function () {
+            if ($('input[name="temptgl"]:checked', '#tempbtngrp').val() == 'C') {
+                alert("C");
+                $('#temp').text(cel.toFixed(1) + '℃');
+            } else {
+                alert("f");
+                $('#temp').text(fah.toFixed(1) + '℉ ');
+            }
         });
     }
 </script>
