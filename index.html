@@ -159,13 +159,11 @@
             $('#weather').text(json.weather[0].main);
 
             weather(json.weather[0].main.toLowerCase())
-
+            $('#temp').text(cel.toFixed(1) + '℃');
             $('#tempbtngrp').find('input').on('change', function () {
                 if ($('input[name="temptgl"]:checked', '#tempbtngrp').val() == 'C') {
-                    alert("C");
                     $('#temp').text(cel.toFixed(1) + '℃');
                 } else {
-                    alert("f");
                     $('#temp').text(fah.toFixed(1) + '℉ ');
                 }
             });
