@@ -72,18 +72,22 @@
             </li>
         </ul>
         <div class="pull-right">
+            <ul class="nav navbar-nav navbar-right" id="temperature">
+                <li class="active" id="F">
+                    <a href="#fahrenheit">℉</a>
+                </li>
+                <li class="" id="C">
+                    <a href="#celcius">℃</a>
+                </li>
+            </ul>
+
             <ul class="nav navbar-nav navbar-right">
-                <div class="btn-group" id="tempbtngrp" style="margin-top: 7px; margin-right: 5px;"
-                     data-toggle="buttons">
-                    <label class="btn btn-primary active">
-                        <input type="radio" name="temptgl" value="C" id="celcius" checked>C
-                    </label>
-                    <label class="btn btn-primary">
-                        <input type="radio" name="temptgl" value="F" id="fahrenheit">F
-                    </label>
-                </div>
-                <li style="display: none"><a class="default-cursor"><span id="date"></span></a></li>
-                <li style="display: none"><a class="default-cursor"><span id="time"></span></a></li>
+                <li style="display: none">
+                    <a class="default-cursor"><span id="date"></span></a>
+                </li>
+                <li style="display: none">
+                    <a class="default-cursor"><span id="time"></span></a>
+                </li>
             </ul>
         </div>
     </div>
@@ -97,7 +101,7 @@
             </div>
             <div class="col-sm-2 col-xs-2">
                 <button type="button" class="btn btn-default btn-lg" id="search" style="width: 100%"
-                        onclick="slideUp()">Search
+                        onclick="search(); slideUp();">Search
                 </button>
             </div>
         </div>
@@ -112,7 +116,7 @@
 
                 <p id="weather"></p>
 
-                <p><strong id="temp"></strong></p>
+                <p><strong id="strongTemp"></strong></p>
             </div>
         </div>
     </div>
@@ -128,11 +132,28 @@
 <script src="js/jquery-ui.js"></script>
 
 <script>
+    var city;
+    var kelvin;
+
     $('#txtField').keyup(function (e) {
         if (e.keyCode == 13) {
+            search();
             slideUp();
         }
     });
+
+    function search() {
+        city = $('#txtField').val();
+        $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=" + city, function (json) {
+            console.log(json);
+
+            temperature(json.main.temp);
+        });
+    }
+
+
+    function display() {
+    }
 
     function weather(w) {
         var divVideo = $('#divVideo');
@@ -141,34 +162,48 @@
         divVideo.find(weather).fadeIn('slow');
     }
 
+    $('#temperature').find('li').click(function () {
+        $('#temperature').find('li').removeClass('active');
+        $(this).addClass('active');
+
+        search();
+
+    });
+
+    function temperature(t) {
+        var fah = (t * 9 / 5 - 459.67);
+        var cel = (t - 273.15);
+
+        if ($('#F').hasClass('active')) {
+            $('#strongTemp').text(fah.toFixed(1) + '℉');
+        } else {
+            $('#strongTemp').text(cel.toFixed(1) + '℃');
+        }
+    }
+
+
+    //    $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=" + city, function (json) {
+    //        console.log(json);
+    //
+    //        if (json.name == "") {
+    //            $('#searchName').text(city.toUpperCase());
+    //        } else {
+    //            $('#searchName').text(json.name.toUpperCase());
+    //        }
+    //        $('#weather').text(json.weather[0].main);
+    //
+    //        weather(json.weather[0].main.toLowerCase())
+    //        $('#temp').text(cel.toFixed(1) + '℃');
+    //        $('#tempbtngrp').find('input').on('change', function () {
+    //            if ($('input[name="temptgl"]:checked', '#tempbtngrp').val() == 'C') {
+    //                $('#temp').text(cel.toFixed(1) + '℃');
+    //            } else {
+    //                $('#temp').text(fah.toFixed(1) + '℉ ');
+    //            }
+    //        });
+    //    });
+
     function slideUp() {
-        var city = $('#txtField').val();
-
-        $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=" + city, function (json) {
-            console.log(json);
-
-            var kelvin = json.main.temp;
-            var fah = (kelvin * 9 / 5 - 459.67);
-            var cel = (kelvin - 273.15);
-
-            if (json.name == "") {
-                $('#searchName').text(city.toUpperCase());
-            } else {
-                $('#searchName').text(json.name.toUpperCase());
-            }
-            $('#weather').text(json.weather[0].main);
-
-            weather(json.weather[0].main.toLowerCase())
-            $('#temp').text(cel.toFixed(1) + '℃');
-            $('#tempbtngrp').find('input').on('change', function () {
-                if ($('input[name="temptgl"]:checked', '#tempbtngrp').val() == 'C') {
-                    $('#temp').text(cel.toFixed(1) + '℃');
-                } else {
-                    $('#temp').text(fah.toFixed(1) + '℉ ');
-                }
-            });
-        });
-
         $('#results').fadeIn('slow');
 
         $('#search').animate({
