@@ -52,75 +52,103 @@
                 type="video/mp4">
     </video>
 </div>
-
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <span class="navbar-brand">The Weather Website</span>
-        </div>
-        <ul class="nav navbar-nav">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Weather
-                    <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li onclick="weather('clear')"><a href="#Sun">Sun</a></li>
-                    <li onclick="weather('clouds')"><a href="#Cloud">Cloud</a></li>
-                    <li onclick="weather('rain')"><a href="#Rain">Rain</a></li>
-                    <li onclick="weather('lightning')"><a href="#Lightning">Lightning</a></li>
-                    <li onclick="weather('snow')"><a href="#Snow">Snow</a></li>
+<div class="hidden-xs">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <span class="navbar-brand">The Weather Website</span>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Weather
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li onclick="weather('clear')"><a href="#Sun">Sun</a></li>
+                        <li onclick="weather('clouds')"><a href="#Cloud">Cloud</a></li>
+                        <li onclick="weather('rain')"><a href="#Rain">Rain</a></li>
+                        <li onclick="weather('lightning')"><a href="#Lightning">Lightning</a></li>
+                        <li onclick="weather('snow')"><a href="#Snow">Snow</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="pull-right">
+                <ul class="nav navbar-nav navbar-right" id="temperature">
+                    <li class="active" id="F">
+                        <a href="#fahrenheit">℉</a>
+                    </li>
+                    <li class="" id="C">
+                        <a href="#celcius">℃</a>
+                    </li>
                 </ul>
-            </li>
-        </ul>
-        <div class="pull-right">
-            <ul class="nav navbar-nav navbar-right" id="temperature">
-                <li class="active" id="F">
-                    <a href="#fahrenheit">℉</a>
-                </li>
-                <li class="" id="C">
-                    <a href="#celcius">℃</a>
-                </li>
-            </ul>
 
-            <ul class="nav navbar-nav navbar-right">
-                <li style="display: none">
-                    <a class="default-cursor"><span id="date"></span></a>
-                </li>
-                <li style="display: none">
-                    <a class="default-cursor"><span id="time"></span></a>
-                </li>
-            </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li style="display: none">
+                        <a class="default-cursor"><span id="date"></span></a>
+                    </li>
+                    <li style="display: none">
+                        <a class="default-cursor"><span id="time"></span></a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
-<sction id="search" class="center">
+    <sction id="search" class="center">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-1">
+                    <input placeholder="Postal Code or City Name" class="form-control input-lg" id="txtField"
+                           type="text">
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-default btn-lg" id="search" style="width: 100%"
+                            onclick="search(); slideUp();">Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </sction>
+
+    <section id="results" class="center" hidden>
+        <div class="container">
+            <div class="row results">
+                <div class="col-sm-12">
+                    <h1>Current Weather</h1>
+                    <hr>
+                    <div class="col-sm-12">
+                        <h2 id="searchName"></h2>
+                    </div>
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <img id="icon" class="text-center">
+                    </div>
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <p><strong id="strongTemp"></strong></p>
+
+                        <h3 id="weather"></h3>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="pull-left">
+                            <p>Low: <span id="lowTemp"></span></p>
+                        </div>
+                        <div class="pull-right">
+                            <p>High: <span id="highTemp"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="hidden-lg hidden-md hidden-sm center form-control">
     <div class="container">
-        <div class="row">
-            <div class="col-sm-8 col-sm-offset-1 col-xs-10">
-                <input placeholder="Postal Code or City Name" class="form-control input-lg" id="txtField" type="text">
-            </div>
-            <div class="col-sm-2 col-xs-2">
-                <button type="button" class="btn btn-default btn-lg" id="search" style="width: 100%"
-                        onclick="search(); slideUp();">Search
-                </button>
-            </div>
+        <div class="row text-center">
+            <h3>Your device resolution is too small.</h3>
+            <h4>Please use a device with a minimum width of 767px.</h4>
+
+            <p>Current width: <span id="res"></span></p>
         </div>
     </div>
-</sction>
-
-<section id="results" class="center form-control" hidden>
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <h1 id="searchName"></h1>
-
-                <p id="weather"></p>
-
-                <p><strong id="strongTemp"></strong></p>
-            </div>
-        </div>
-    </div>
-</section>
+</div>
 
 
 <!-- Bootstrap core JavaScript
@@ -132,13 +160,19 @@
 <script src="js/jquery-ui.js"></script>
 
 <script>
+    function width() {
+        $('#res').text($(document).width() + "px");
+    }
+    setInterval(function () {
+        width();
+    }, 100);
+
     var city;
     var kelvin;
 
     $('#txtField').keyup(function (e) {
         if (e.keyCode == 13) {
             search();
-            slideUp();
         }
     });
 
@@ -148,11 +182,12 @@
             console.log(json);
 
             temperature(json.main.temp);
+            sLocation(json);
+
+            $('#weather').text(json.weather[0].main);
+            $('#icon').attr('src', 'http://openweathermap.org/img/w/' + json.weather[0].icon + '.png');
         });
-    }
-
-
-    function display() {
+        slideUp();
     }
 
     function weather(w) {
@@ -165,10 +200,20 @@
     $('#temperature').find('li').click(function () {
         $('#temperature').find('li').removeClass('active');
         $(this).addClass('active');
-
         search();
-
     });
+
+    function sLocation(l) {
+        var searchInput = $('#searchName');
+        switch (l) {
+            case '':
+                searchInput.text(city.toUpperCase());
+                break;
+            default:
+                searchInput.text((l.name + ", " + l.sys.country).toUpperCase());
+                break;
+        }
+    }
 
     function temperature(t) {
         var fah = (t * 9 / 5 - 459.67);
@@ -190,7 +235,7 @@
     //        } else {
     //            $('#searchName').text(json.name.toUpperCase());
     //        }
-    //        $('#weather').text(json.weather[0].main);
+    //
     //
     //        weather(json.weather[0].main.toLowerCase())
     //        $('#temp').text(cel.toFixed(1) + '℃');
