@@ -64,7 +64,7 @@
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li onclick="weather('clear')"><a href="#Sun">Sun</a></li>
-                        <li onclick="weather('clouds')"><a href="#Cloud">Cloud</a></li>
+                        <li onclick="weather('clouds')"><a href="#Clouds">Cloud</a></li>
                         <li onclick="weather('rain')"><a href="#Rain">Rain</a></li>
                         <li onclick="weather('lightning')"><a href="#Lightning">Lightning</a></li>
                         <li onclick="weather('snow')"><a href="#Snow">Snow</a></li>
@@ -113,19 +113,16 @@
         <div class="container">
             <div class="row results">
                 <div class="col-sm-12">
-                    <h1>Current Weather</h1>
+                    <h1><span id="searchName"></span> - <span id="strongTemp"></span></h1>
                     <hr>
-                    <div class="col-sm-12">
-                        <h2 id="searchName"></h2>
-                    </div>
-                    <div class="col-sm-6 col-sm-offset-3">
-                        <img id="icon" class="text-center">
-                    </div>
-                    <div class="col-sm-6 col-sm-offset-3">
-                        <p><strong id="strongTemp"></strong></p>
 
-                        <h3 id="weather"></h3>
-                    </div>
+                    <h3 id="weather" style="text-transform: capitalize"></h3>
+                    <!--<div class="col-sm-6 col-sm-offset-3">-->
+                        <!--<img id="icon" class="text-center">-->
+                    <!--</div>-->
+                    <!--<div class="col-sm-6 col-sm-offset-3">-->
+                        <!--<p><strong></strong></p>-->
+                    <!--</div>-->
                     <div class="col-sm-12">
                         <div class="pull-left">
                             <p>Low: <span id="lowTemp"></span></p>
@@ -176,6 +173,15 @@
         }
     });
 
+    function weather(w) {
+        var divVideo = $('#divVideo');
+        var weatherId = '#' + w;
+        divVideo.find('video').fadeOut('slow');
+        divVideo.find(weatherId).fadeIn('slow');
+
+        $('#weather').text(w)
+    }
+
     function search() {
         city = $('#txtField').val();
         $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=" + city, function (json) {
@@ -183,18 +189,12 @@
 
             temperature(json.main.temp);
             sLocation(json);
+            weather(json.weather[0].main.toLowerCase());
 
-            $('#weather').text(json.weather[0].main);
-            $('#icon').attr('src', 'http://openweathermap.org/img/w/' + json.weather[0].icon + '.png');
+//            $('#icon').attr('src', 'http://openweathermap.org/img/w/' + json.weather[0].icon + '.png');
+
         });
         slideUp();
-    }
-
-    function weather(w) {
-        var divVideo = $('#divVideo');
-        var weather = '#' + w;
-        divVideo.find('video').fadeOut('slow');
-        divVideo.find(weather).fadeIn('slow');
     }
 
     $('#temperature').find('li').click(function () {
@@ -210,7 +210,7 @@
                 searchInput.text(city.toUpperCase());
                 break;
             default:
-                searchInput.text((l.name + ", " + l.sys.country).toUpperCase());
+                searchInput.text((l.name + ", " + l.sys.country.toUpperCase()));
                 break;
         }
     }

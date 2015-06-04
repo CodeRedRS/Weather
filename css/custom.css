@@ -60,7 +60,7 @@ nav {
 }
 
 .center {
-    top: calc(50% - 10em);
+    top: 20%;
     position: fixed;
     /* center the element */
     text-align: center;
@@ -69,7 +69,7 @@ nav {
     margin-right: auto;
     margin-left: auto;
     /* give it dimensions */
-    min-height: 10em;
+    min-height: 5em;
     width: 90%;
 }
 
