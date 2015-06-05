@@ -29,30 +29,17 @@
 </head>
 
 <body>
-
 <div class="darken"></div>
+<!--Videos-->
 <div id="divVideo">
-    <video autoplay muted loop class="bgvid" id="clear">
-        <source src="//d2v9y0dukr6mq2.cloudfront.net/video/preview/sunny-redwoods-spin_-ji5zzvls__PM.mp4">
-    </video>
-    <video autoplay muted loop hidden class="bgvid" id="clouds">
-        <source src="//d2v9y0dukr6mq2.cloudfront.net/video/preview/cloudy-sky-to-sunny-sky-to-night-sky_zjhljdseh__PM.mp4"
-                type="video/mp4">
-    </video>
-    <video autoplay muted loop hidden class="bgvid" id="rain">
-        <source src="//d2v9y0dukr6mq2.cloudfront.net/video/preview/hard-rain-on-leaves-close_-jkulb9qb__PM.mp4"
-                type="video/mp4">
-    </video>
-    <video autoplay muted loop hidden class="bgvid" id="lightning">
-        <source src="//d2v9y0dukr6mq2.cloudfront.net/video/preview/multiple-lightning-flashes-around-dc_-1qizojls__PM.mp4"
-                type="video/mp4">
-    </video>
-    <video autoplay muted loop hidden class="bgvid" id="snow">
-        <source src="//d2v9y0dukr6mq2.cloudfront.net/video/preview/pine-trees-in-heavy-snow_bjjzd1oes__PM.mp4"
-                type="video/mp4">
+    <video autoplay muted loop class="bgvid" id="currentMov" style="display: none">
+        <source src="" type="video/mp4">
     </video>
 </div>
+
 <div class="hidden-xs">
+
+    <!--Nav-->
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -93,6 +80,7 @@
         </div>
     </nav>
 
+    <!--Search-->
     <sction id="search" class="center">
         <div class="container">
             <div class="row">
@@ -109,11 +97,12 @@
         </div>
     </sction>
 
+    <!--Results-->
     <section id="results" class="center" hidden>
         <div class="container">
             <div class="row results">
                 <div class="col-sm-12">
-                    <h1><span id="searchName"></span> - <span id="strongTemp"></span></h1>
+                    <h1><span id="searchName"></span> (<span id="strongTemp"></span>)</h1>
                     <hr>
 
                     <h3 id="weather" style="text-transform: capitalize"></h3>
@@ -136,6 +125,8 @@
         </div>
     </section>
 </div>
+
+<!--Too Small-->
 <div class="hidden-lg hidden-md hidden-sm center form-control">
     <div class="container">
         <div class="row text-center">
@@ -173,16 +164,49 @@
         }
     });
 
+    function movie(m) {
+        var clear = 'sunny-redwoods-spin_-ji5zzvls__PM';
+        var clouds = 'cloudy-sky-to-sunny-sky-to-night-sky_zjhljdseh__PM';
+        var rain = 'hard-rain-on-leaves-close_-jkulb9qb__PM';
+        var lightning = 'multiple-lightning-flashes-around-dc_-1qizojls__PM';
+        var snow = 'pine-trees-in-heavy-snow_bjjzd1oes__PM';
+
+        var movieEl = $('#currentMov');
+        var movieURL = '';
+
+        switch (m) {
+            case 'clear':
+                movieURL = clear;
+                break;
+            case 'clouds':
+                movieURL = clouds;
+                break;
+            case 'rain':
+                movieURL = rain;
+                break;
+            case 'lightning':
+                movieURL = lightning;
+                break;
+            case 'snow':
+                movieURL = snow;
+                break;
+        }
+
+        movieEl.find('source').attr('src', '//d2v9y0dukr6mq2.cloudfront.net/video/preview/' + movieURL + '.mp4');
+        movieEl.load();
+        movieEl.fadeIn('slow').delay(250);
+    }
+
     function weather(w) {
         var divVideo = $('#divVideo');
-        var weatherId = '#' + w;
-        divVideo.find('video').fadeOut('slow');
-        divVideo.find(weatherId).fadeIn('slow');
+        movie(w);
 
         $('#weather').text(w)
     }
 
     function search() {
+        $('#currentMov').fadeOut('slow').delay(250);
+
         city = $('#txtField').val();
         $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=" + city, function (json) {
             console.log(json);
